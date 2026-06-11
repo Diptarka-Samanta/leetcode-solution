@@ -27,4 +27,18 @@ git commit -m "Add June 9 LeetCode solution (#1234)"
 git push
 ```
 
-For more tips and troubleshooting, see the [HOW_TO_UPLOAD.md](./HOW_TO_UPLOAD.md) guide.
+For more tips and troubleshooting (such as changing a commit message or renaming files after pushing), see the [HOW_TO_UPLOAD.md](./HOW_TO_UPLOAD.md) guide.
+
+## Quick Git Tips
+
+- **Change your last commit message (even if already pushed):**
+  ```bash
+  git commit --amend -m "Your new correct message"
+  git push --force
+  ```
+- **Rename a file (even if already pushed):**
+  ```bash
+  git mv python/old-name.py python/new-name.py
+  git commit -m "Rename old-name.py to new-name.py"
+  git push
+  ```

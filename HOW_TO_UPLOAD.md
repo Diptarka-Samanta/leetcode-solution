@@ -63,3 +63,26 @@ git push
   ```bash
   git pull
   ```
+- **Change the last commit message (Amend):** If you made a mistake in your last commit message (like a wrong date or question number) and want to change it:
+  1. Amend the commit message locally:
+     ```bash
+     git commit --amend -m "Your new correct commit message"
+     ```
+  2. If you have already pushed to GitHub, force-push the update:
+     ```bash
+     git push --force
+     ```
+     *(Caution: Only use force push if you are the only one working on this branch).*
+- **Rename a file after pushing:** If you named a file incorrectly (e.g., wrong date or problem ID) and already pushed it to GitHub:
+  1. Rename the file using Git:
+     ```bash
+     git mv python/old-name.py python/new-name.py
+     ```
+  2. Commit the change:
+     ```bash
+     git commit -m "Rename old-name.py to new-name.py"
+     ```
+  3. Push the update:
+     ```bash
+     git push
+     ```
