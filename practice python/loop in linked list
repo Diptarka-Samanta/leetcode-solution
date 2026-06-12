@@ -1,0 +1,97 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def create_linked_list(arr):
+    if not arr:
+        return None
+    head = Node(arr[0])
+    curr = head
+    nodes = [head]
+    for val in arr[1:]:
+        new_node = Node(val)
+        curr.next = new_node
+        curr = new_node
+        nodes.append(new_node)
+    return head, nodes
+
+def create_loop(head, nodes, pos):
+    if pos == -1:
+        return
+    tail = nodes[-1]
+    tail.next = nodes[pos]
+
+def print_list(head):
+    curr = head
+    visited = set()
+    while curr:
+        if curr in visited:
+            print(f"({curr.data}) -> ... (Loop back to node with value {curr.data})")
+            return
+        visited.add(curr)
+        print(curr.data, end=" -> ")
+        curr = curr.next
+    print("None")
+
+def detect_loop(head):
+    slow = head
+    fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+    return False
+
+def remove_loop(head):
+    slow = head
+    fast = head
+    loop_exists = False
+    
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            loop_exists = True
+            break
+            
+    if not loop_exists:
+        return
+        
+    slow = head
+    if slow == fast:
+        while fast.next != slow:
+            fast = fast.next
+        fast.next = None
+        return
+        
+    # General case
+    while slow.next != fast.next:
+        slow = slow.next
+        fast = fast.next
+    fast.next = None
+
+n = int(input("Enter number of nodes : "))
+arr = list(map(int, input("Enter node values (separated by spaces or commas): ").replace(',', ' ').split()))
+pos = int(input("Enter position of loop (0 based index, -1 for no loop) : "))
+
+head, nodes = create_linked_list(arr)
+create_loop(head, nodes, pos)
+
+print("Linked List structure:")
+print_list(head)
+
+if detect_loop(head):
+    print("Result: Loop detected in the linked list!")
+    print("\nRemoving loop...")
+    remove_loop(head)
+    print("Linked List structure after removing loop:")
+    print_list(head)
+    if detect_loop(head):
+        print("Result: Loop still exists.")
+    else:
+        print("Result: Loop successfully removed!")
+else:
+    print("Result: No loop in the linked list.")
+
